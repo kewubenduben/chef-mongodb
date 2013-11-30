@@ -56,8 +56,8 @@ class Chef
 
       rs_member_ips = []
 
-      if node['mongodb']['replicaset_members'] != nil and Chef::Config[:solo]
-        node.set['mongodb']['replicaset_members'] << node['mongodb']['bind_ip'] unless node['mongodb']['replicaset_members'].include?(node['mongodb']['bind_ip'])
+      if node['mongodb']['replicaset_members'] != nil and Chef::Config[:solo] and not node['mongodb']['bind_ip'].nil?
+        node.set['mongodb']['replicaset_members'] <<= node['mongodb']['bind_ip'] unless node['mongodb']['replicaset_members'].include?(node['mongodb']['bind_ip'])
       end
 
       if not Chef::Config[:solo]
